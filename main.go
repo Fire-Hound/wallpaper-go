@@ -34,6 +34,8 @@ func main() {
 	home, _ := os.UserHomeDir()
 	wallpaperFolder := filepath.Join(home, "wallpapers")
 	fmt.Println(wallpaperFolder)
+	os.RemoveAll(wallpaperFolder)
+	os.MkdirAll(wallpaperFolder, 0755)
 
 	for _, post := range posts {
 		extension := ""
