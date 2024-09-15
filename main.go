@@ -49,11 +49,13 @@ func main() {
 		if extension == "" {
 			continue
 		}
+		if post.NSFW {
+			continue
+		}
 
-		fmt.Println(post.Title)
+		fmt.Println("Downloaded", post.Title)
 		filename := make_valid_file(post.Title) + extension
 		path := filepath.Join(wallpaperFolder, filename)
-		fmt.Println(path)
 
 		out, err := os.Create(path)
 		if err != nil {
