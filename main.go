@@ -26,7 +26,12 @@ func make_valid_file(file string) string {
 
 func main() {
 	client, _ := reddit.NewReadonlyClient()
-	posts, _, err := client.Subreddit.HotPosts(ctx, "wallpapers", &reddit.ListOptions{})
+	posts, _, err := client.Subreddit.TopPosts(ctx, "wallpapers", &reddit.ListPostOptions{
+		ListOptions: reddit.ListOptions{
+			Limit: 20,
+		},
+		Time: "month",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,6 +54,7 @@ func main() {
 			extension = ".jpeg"
 		}
 		if extension == "" {
+			fmt.Println("Skipping", post.Title)
 			continue
 		}
 		if post.NSFW {
